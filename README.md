@@ -1,6 +1,8 @@
 # indie-campers-assessment
 Para correr o projeto deverá:
+
 -- Entrar na pasta part2;
+
 -- Correr o comando:
 
     npm install
