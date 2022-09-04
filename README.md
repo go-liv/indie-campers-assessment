@@ -11,6 +11,6 @@ Para correr o projeto deverá:
 
     npm start
 
--- Primeira enpoint da API será
+-- Primeira enpoint da API será:
 
     http://localhost:5000/api/highlights/longitude de partida, latitude de partida/longitude de chegada, latitude de chegada
