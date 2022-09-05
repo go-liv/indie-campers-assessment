@@ -16,11 +16,22 @@ module.exports.getHighlights = async (lng, lat) => {
     let data = null;
     await axios.get(`https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/tilequery/${lng},${lat}.json?radius=50&layers=poi_label&access_token=pk.eyJ1IjoiZmlzaHN0aXh6IiwiYSI6ImNrems3b2p0MzIzZmgybm9jcjVzMHZ1aHoifQ.s6imzJ1hBpWdfdJzwmehOQ`)
         .then(response => {
-            // console.log(`LNG-LAT --> ${lng}/${lat} \n ${response.data}`);
             data = response.data.features;
         })
         .catch(err => {
             console.error(err);
         });
+    return data;
+};
+
+module.exports.closestHighlight = async (lng, lat) => {
+    // The Tilequery API returns the least distance from the queried point first, so limiting to one will respond with the closest highlight
+    await axios.get(`https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/tilequery/${lng},${lat}.json?radius=50&limit=1&layers=poi_label&access_token=pk.eyJ1IjoiZmlzaHN0aXh6IiwiYSI6ImNrems3b2p0MzIzZmgybm9jcjVzMHZ1aHoifQ.s6imzJ1hBpWdfdJzwmehOQ`)
+    .then(response => {
+        data = response.data.features;
+    })
+    .catch(err => {
+        console.error(err);
+    });
     return data;
 };

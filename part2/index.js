@@ -23,6 +23,7 @@ app.get('/api/highlights/:dep/:arr', async (req, res) => {
                     'Name': (!('name' in feature.properties)) ? 'None' : feature.properties.name,
                     'Type': (!('type' in feature.properties)) ? 'None' : feature.properties.type,
                     'Class': (!('class' in feature.properties)) ? 'None' : feature.properties.class,
+                    'Category': (!('category_en' in feature.properties)) ? 'None' : feature.properties.category_en,
                 });
             });
             if(index == coors.length -1) resolve(); 
@@ -30,6 +31,21 @@ app.get('/api/highlights/:dep/:arr', async (req, res) => {
     });
     loop.then(() => {
         res.json(highlights);
+    });
+    loop.catch((err) => {
+        console.error(err);
+    });
+});
+
+app.get('/api/closest/:lng/:lat', async (req, res) => {
+    console.log(`Request with lng=${req.params.lng} and lat=${req.params.lat}`);
+    const response = await controller.closestHighlight(req.params.lng, req.params.lat);
+    res.json({
+        'POICoordinates': (!('coordinates' in response[0].geometry)) ? 'None' : response[0].geometry.coordinates,
+        'Name': (!('name' in response[0].properties)) ? 'None' : response[0].properties.name,
+        'Type': (!('type' in response[0].properties)) ? 'None' : response[0].properties.type,
+        'Class': (!('class' in response[0].properties)) ? 'None' : response[0].properties.class,
+        'Category': (!('category_en' in response[0].properties)) ? 'None' : response[0].properties.category_en,
     });
 });
 
