@@ -9,7 +9,7 @@ Para correr o projeto deverá:
 
 -- Correr o comando:
 
-    npm start
+    npm start ou npm run dev (para correr em development com a package nodemon)
 
 -- Primeira enpoint da API será:
 
